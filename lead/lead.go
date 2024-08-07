@@ -81,24 +81,25 @@ func NewLead(c *fiber.Ctx) error {
 	return c.Status(201).JSON(lead)
 }
 
-// DeleteLead handles DELETE requests to remove a lead by ID
 func DeleteLead(c *fiber.Ctx) error {
-	id := c.Params("id")
-	objID, err := primitive.ObjectIDFromHex(id)
-	if err != nil {
-		return c.Status(400).SendString("Invalid ID format")
-	}
+    id := c.Params("id")
+    log.Println("Received ID:", id) // Log the received ID
 
-	collection := database.Client.Database("simplecrm").Collection("leads")
-	res, err := collection.DeleteOne(context.TODO(), bson.M{"_id": objID})
-	if err != nil {
-		log.Fatal(err)
-		return c.Status(500).SendString(err.Error())
-	}
+    objID, err := primitive.ObjectIDFromHex(id)
+    if err != nil {
+        return c.Status(400).SendString("Invalid ID format")
+    }
 
-	if res.DeletedCount == 0 {
-		return c.Status(404).SendString("Lead not found")
-	}
+    collection := database.Client.Database("simplecrm").Collection("leads")
+    res, err := collection.DeleteOne(context.TODO(), bson.M{"_id": objID})
+    if err != nil {
+        log.Fatal(err)
+        return c.Status(500).SendString(err.Error())
+    }
 
-	return c.SendStatus(fiber.StatusNoContent)
+    if res.DeletedCount == 0 {
+        return c.Status(404).SendString("Lead not found")
+    }
+
+    return c.SendStatus(fiber.StatusNoContent)
 }

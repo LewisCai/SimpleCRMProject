@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple CRM Frontend</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <h1>Simple CRM Frontend</h1>
+
+    <form id="leadForm">
+        <input type="text" id="name" placeholder="Name" required>
+        <input type="text" id="company" placeholder="Company" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="text" id="phone" placeholder="Phone" required>
+        <button type="submit">Add Lead</button>
+    </form>
+
+    <h2>Customers</h2>
+    <button id="deleteSelected">Delete Selected</button>
+    <ul id="leadsList"></ul>
+
+    <script src="app.js"></script>
+</body>
+</html>
